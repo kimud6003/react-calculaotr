@@ -19,4 +19,6 @@ Calculator.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Calculator;
+export default React.memo(Calculator, (prev, next) => {
+  return prev === next;
+});

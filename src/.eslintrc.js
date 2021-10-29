@@ -11,6 +11,7 @@ module.exports = {
         extensions: ['.js', '.jsx'],
       },
     ],
+    eqeqeq: 'off',
     'prefer-destructuring': [
       'error',
       {

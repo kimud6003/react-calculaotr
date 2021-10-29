@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from './Components/Button';
@@ -9,58 +9,8 @@ const CControl = styled.div`
   height: 70%;
 `;
 
-const Control = ({ triggerSum, triggerCalculation }) => {
-  const [calculation, setcalculation] = useState([]);
-  useEffect(() => {
-    triggerCalculation(calculation.join(''));
-  }, [calculation, triggerCalculation]);
-
-  const handleClick = e => {
-    const { value } = e.target;
-    switch (value) {
-      case 'clear': {
-        setcalculation([]);
-        triggerSum(calculation);
-        triggerCalculation(calculation);
-        break;
-      }
-      case '=': {
-        if (Number.isNaN(calculation[calculation.length - 1])) {
-          break;
-        }
-        triggerSum(calculation.join(''));
-        setcalculation([]);
-        break;
-      }
-      case 'posNeg': {
-        const posNeg = [[...calculation].join('') * -1];
-        setcalculation(posNeg);
-        break;
-      }
-      case 'perc': {
-        const percentage = [[...calculation].join('') * 0.01];
-        setcalculation(percentage);
-        break;
-      }
-      case 'back': {
-        const removeLast = [...calculation];
-        removeLast.splice(removeLast.length - 1, 1);
-        setcalculation(removeLast);
-        break;
-      }
-      default: {
-        if (
-          Number.isNaN(value) &&
-          Number.isNaN(calculation[calculation.length - 1])
-        ) {
-          break;
-        }
-        setcalculation([...calculation, value]);
-        break;
-      }
-    }
-  };
-
+const Control = ({ handleClick }) => {
+  console.log(handleClick);
   return (
     <CControl>
       <Button onClick={handleClick} name="C" value="clear" color="mediumGrey" />
@@ -97,8 +47,11 @@ const Control = ({ triggerSum, triggerCalculation }) => {
 };
 
 Control.propTypes = {
-  triggerSum: PropTypes.func.isRequired,
-  triggerCalculation: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Control);
+export default React.memo(Control, (p, n) => {
+  console.log(p);
+  console.log(n);
+  console.log(p === n);
+});

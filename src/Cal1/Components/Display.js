@@ -43,4 +43,9 @@ Display.propTypes = {
   sum: PropTypes.node.isRequired,
 };
 
-export default Display;
+export default React.memo(Display, (prev, next) => {
+  const prevList = JSON.stringify(prev.calculation);
+  const nextList = JSON.stringify(next.calculation);
+
+  return prevList === nextList && prev.sum === next.sum;
+});

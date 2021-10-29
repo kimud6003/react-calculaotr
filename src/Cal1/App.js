@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Wraper from './Wraper';
 
 const CContainer = styled.div`
   display: flex;
@@ -11,12 +11,12 @@ const CContainer = styled.div`
   width: 100%;
 `;
 
-const Container = ({ children }) => {
-  return <CContainer>{children}</CContainer>;
+const App = () => {
+  return (
+    <CContainer>
+      <Wraper />
+    </CContainer>
+  );
 };
 
-Container.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Container;
+export default App;
