@@ -2,10 +2,9 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { evaluate } from 'mathjs';
 import styled from 'styled-components';
-// import Calculator from './Components/Calculator';
-// import Container from './Components/Container';
 import Contorl from './Contorl';
 import Display from './Components/Display';
+
 const Calculator = styled.div`
   width: 20rem;
   height: 30rem;
@@ -18,65 +17,58 @@ const Calculator = styled.div`
 function Wraper() {
   const [Calculation, setCalculation] = useState([]);
   const [Sum, setSum] = useState(0);
-  const tmp = useRef();
+
+  const stateRef = useRef([]);
+
   useEffect(() => {
-    tmp.current = Calculation;
-  }, [Calculation]);
+    stateRef.current[0] = Calculation;
+    stateRef.current[1] = Sum;
+  }, [Calculation, Sum]);
+
   const SumCallback = useCallback(cal => {
     let calculation = cal;
-    if (String(calculation).length === 0) {
-      calculation = 0;
-    } else {
-      calculation = evaluate(calculation);
-    }
+    if (String(calculation).length === 0) calculation = 0;
+    else calculation = evaluate(calculation);
+
     setSum(calculation);
   }, []);
+
   const handleClick = useCallback(
     e => {
       const { value } = e.target;
+      let nowCal = stateRef.current[0];
+      let nowSum = stateRef.current[1];
       switch (value) {
         case 'clear': {
-          if (tmp.current.length !== 0) {
-            setCalculation(Cal => {
-              SumCallback(Cal);
-              return [];
-            });
+          console.log(nowSum);
+          if (nowCal.length !== 0 || nowSum !== 0) {
+            setCalculation([]);
+            SumCallback([]);
           }
           break;
         }
         case '=': {
-          setCalculation(Cal => {
-            if (!isNaN(Cal[Cal.length - 1])) SumCallback(Cal.join(''));
-            return [];
-          });
+          if (!isNaN(nowCal[nowCal.length - 1])) {
+            SumCallback(nowCal.join(''));
+            setCalculation([]);
+          }
           break;
         }
         case 'posNeg': {
-          setCalculation(Cal => {
-            return [[...Cal].join('') * -1];
-          });
+          setCalculation(Cal => [Cal.join('') * -1]);
           break;
         }
         case 'perc': {
-          setCalculation(Cal => {
-            return [[...Cal].join('') * 0.01];
-          });
+          setCalculation(Cal => [Cal.join('') * 0.01]);
           break;
         }
         case 'back': {
-          setCalculation(Cal => {
-            return [...Cal].splice([...Cal].length - 1, 1);
-          });
+          setCalculation(Cal => [...Cal].splice(Cal.length - 1, 1));
           break;
         }
         default: {
-          console.log(tmp);
-          setCalculation(Cal => {
-            console.log(Cal);
-            if (!(isNaN(value) && isNaN(Cal[Cal.length - 1])))
-              return [...Cal, value];
-            return Cal;
-          });
+          if (isNaN(value) && isNaN(nowCal[nowCal.length - 1])) break;
+          setCalculation(nowCal.concat(value));
           break;
         }
       }

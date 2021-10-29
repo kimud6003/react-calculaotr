@@ -10,7 +10,6 @@ const CControl = styled.div`
 `;
 
 const Control = ({ handleClick }) => {
-  console.log(handleClick);
   return (
     <CControl>
       <Button onClick={handleClick} name="C" value="clear" color="mediumGrey" />
@@ -50,4 +49,4 @@ Control.propTypes = {
   handleClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Control, (p, n) => {});
+export default Control;
