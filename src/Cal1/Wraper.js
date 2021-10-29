@@ -1,16 +1,27 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { evaluate } from 'mathjs';
-// import styled from 'styled-components';
-import Calculator from './Components/Calculator';
+import styled from 'styled-components';
+// import Calculator from './Components/Calculator';
 // import Container from './Components/Container';
 import Contorl from './Contorl';
 import Display from './Components/Display';
+const Calculator = styled.div`
+  width: 20rem;
+  height: 30rem;
+  border-radius: 0.75rem;
+  background: ${props => props.theme.Colors.lightGrey};
+  -webkit-box-shadow: 0px 20px 120px -20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 20px 120px -20px rgba(0, 0, 0, 0.7);
+`;
 
 function Wraper() {
   const [Calculation, setCalculation] = useState([]);
   const [Sum, setSum] = useState(0);
-
+  const tmp = useRef();
+  useEffect(() => {
+    tmp.current = Calculation;
+  }, [Calculation]);
   const SumCallback = useCallback(cal => {
     let calculation = cal;
     if (String(calculation).length === 0) {
@@ -25,10 +36,12 @@ function Wraper() {
       const { value } = e.target;
       switch (value) {
         case 'clear': {
-          setCalculation(Cal => {
-            SumCallback(Cal);
-            return [];
-          });
+          if (tmp.current.length !== 0) {
+            setCalculation(Cal => {
+              SumCallback(Cal);
+              return [];
+            });
+          }
           break;
         }
         case '=': {
@@ -57,6 +70,7 @@ function Wraper() {
           break;
         }
         default: {
+          console.log(tmp);
           setCalculation(Cal => {
             console.log(Cal);
             if (!(isNaN(value) && isNaN(Cal[Cal.length - 1])))

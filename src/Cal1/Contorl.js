@@ -50,8 +50,4 @@ Control.propTypes = {
   handleClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Control, (p, n) => {
-  console.log(p);
-  console.log(n);
-  console.log(p === n);
-});
+export default React.memo(Control, (p, n) => {});
