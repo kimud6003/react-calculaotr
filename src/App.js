@@ -1,11 +1,10 @@
 import React from 'react';
-// import Cal1 from './Cal1/App';
-import Cal3 from './Cal3/App.jsx';
+import CalCulator from './Cal-presenterContainer/Calculator.jsx';
 
 function App() {
   return (
     <>
-      <Cal3 />
+      <CalCulator />
     </>
   );
 }

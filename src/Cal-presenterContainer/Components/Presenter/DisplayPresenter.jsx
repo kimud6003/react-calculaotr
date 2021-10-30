@@ -11,14 +11,18 @@ const Display = styled.div`
   background: ${props => props.theme.Colors.displayColor};
 `;
 const CurrentNum = styled.div`
-  padding-top: 10%;
+  height: 2rem;
   width: 95%;
+  padding-top: 10%;
+  padding-top: 10%;
   font-size: 2rem;
   color: ${props => props.theme.Colors.transparentWhite};
   text-align: right;
 `;
 const ResultNum = styled.div`
   padding-top: 5%;
+  padding-bottom: 5%;
+  height: 3rem;
   width: 95%;
   font-size: 3rem;
   color: ${props => props.theme.Colors.lightGrey};

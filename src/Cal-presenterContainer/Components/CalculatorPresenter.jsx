@@ -1,9 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
-import ControlContainer from './Container/ControlContainer';
-import DisplayContainer from './Container/DisplayContainer';
-
-const Container = styled.div`
+const CalculatorPresneter = styled.div`
   width: 20em;
   height: 30em;
   border-radius: 0.75rem;
@@ -24,13 +20,4 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const App = () => {
-  return (
-    <Container>
-      <DisplayContainer />
-      <ControlContainer />
-    </Container>
-  );
-};
-
-export default App;
+export default CalculatorPresneter;

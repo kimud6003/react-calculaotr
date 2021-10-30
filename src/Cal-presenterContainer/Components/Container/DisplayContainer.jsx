@@ -1,11 +1,11 @@
 import React from 'react';
-import { Display, CurrentNum, ResultNum } from '../Compoents/DisplayPresenter';
+import { Display, CurrentNum, ResultNum } from '../Presenter/DisplayPresenter';
 
-const DisplayContainer = () => {
+const DisplayContainer = ({ currentCal, resultCal }) => {
   return (
     <Display>
-      <CurrentNum>200+1</CurrentNum>
-      <ResultNum>0</ResultNum>
+      <CurrentNum>{currentCal}</CurrentNum>
+      <ResultNum>{resultCal}</ResultNum>
     </Display>
   );
 };
