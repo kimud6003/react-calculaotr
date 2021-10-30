@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import ControlComponent from './Compoents/Control';
-import DisplayComponent from './Compoents/Display';
+import ControlContainer from './Container/ControlContainer';
+import DisplayContainer from './Container/DisplayContainer';
 
-const CContainer = styled.div`
+const Container = styled.div`
   width: 20em;
   height: 30em;
   border-radius: 0.75rem;
@@ -26,10 +26,10 @@ const CContainer = styled.div`
 
 const App = () => {
   return (
-    <CContainer>
-      <DisplayComponent />
-      <ControlComponent />
-    </CContainer>
+    <Container>
+      <DisplayContainer />
+      <ControlContainer />
+    </Container>
   );
 };
 
