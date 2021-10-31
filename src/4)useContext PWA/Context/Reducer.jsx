@@ -41,7 +41,7 @@ const reducer = (states, action) => {
     case DELETE_CAL:
       if (cxtCurrentCal.join('') === 0) return states;
       return {
-        currentCal: [cxtCurrentCal.slice(0, cxtCurrentCal.length - 1)],
+        currentCal: cxtCurrentCal.slice(0, cxtCurrentCal.length - 1),
         resultCal: cxtResultCal,
       };
     case INPUT_CAL:

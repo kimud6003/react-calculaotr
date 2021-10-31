@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { evaluate } from 'mathjs';
 import CalculatorPresneter from './Components/CalculatorPresenter';
 import ControlContainer from './Components/Container/ControlContainer';
 import DisplayContainer from './Components/Container/DisplayContainer';
 
 const CalCulator = () => {
-
   const [states, setstates] = useState({
     currentCal: [],
     resultCal: 0,
@@ -55,7 +54,7 @@ const CalCulator = () => {
 
       case '←':
         setstates({
-          currentCal: [currentCalRef.slice(0, currentCalRef.length - 1)],
+          currentCal: currentCalRef.slice(0, currentCalRef.length - 1),
           resultCal: resultCalRef,
         });
         break;

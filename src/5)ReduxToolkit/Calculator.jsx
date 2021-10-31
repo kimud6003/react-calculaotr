@@ -1,56 +1,73 @@
-import React, { useReducer, useCallback } from 'react';
-import reducer from './Context/Reducer.jsx'
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CalculatorPresneter from './Components/CalculatorPresenter';
 import ControlContainer from './Components/Container/ControlContainer';
 import DisplayContainer from './Components/Container/DisplayContainer';
-import { RESET_CAL,POSNEG_CAL,EQUAL_CAL,PERCENT_CAL,DELETE_CAL,INPUT_CAL } from './Context/Action';
+import {
+  RESET,
+  POSNEG,
+  EQUAL,
+  PERCENT,
+  DELETE,
+  INPUT,
+  currentCal,
+  resultCal,
+} from './redux/features/calculator/calculatorSlice.jsx';
 
-const CalDispatch = React.createContext();
-const init = {currentCal:[],resultCal:0};
+//const CalDispatch = React.createContext();
 
 const CalCulator = () => {
-  const [states, dispatch] = useReducer(reducer,init)
+  const CurrentCal = useSelector(currentCal);
+  const ResultCal = useSelector(resultCal);
+  const stateRef = useRef([]);
 
+  useEffect(() => {
+    stateRef.current[0] = CurrentCal;
+    stateRef.current[1] = ResultCal;
+  }, [CurrentCal, ResultCal]);
 
-  const { currentCal, resultCal } = states;
+  const dispatch = useDispatch();
 
   const calculateFunc = useCallback(e => {
     const value = e.target.value;
+    const RefCurrentCal = stateRef.current[0];
+    const RefResultCal = stateRef.current[1];
 
+    if (isNaN(value) && isNaN(RefCurrentCal[RefCurrentCal.length - 1])) return;
     switch (value) {
       case 'C':
-        dispatch({type:RESET_CAL})
+        if (RefCurrentCal.length === 0 && RefResultCal === 0) break;
+        dispatch(RESET());
         break;
 
       case '+/-':
-        dispatch({type:POSNEG_CAL})
+        dispatch(POSNEG());
         break;
 
       case '=':
-        dispatch({type:EQUAL_CAL})
+        if (isNaN(RefCurrentCal[RefCurrentCal.length - 1])) break;
+        dispatch(EQUAL());
         break;
 
       case '%':
-        dispatch({type:PERCENT_CAL})
+        dispatch(PERCENT());
         break;
 
       case '←':
-        dispatch({type:DELETE_CAL})
+        dispatch(DELETE());
         break;
 
       default:
-        dispatch({type:INPUT_CAL,value:value})
+        dispatch(INPUT(value));
         break;
     }
   }, []);
 
   return (
-    <CalDispatch.Provider value={dispatch}>
-      <CalculatorPresneter>
-        <DisplayContainer currentCal={currentCal} resultCal={resultCal} />
-        <ControlContainer calculateFunc={calculateFunc} />
-      </CalculatorPresneter>
-    </CalDispatch.Provider>
+    <CalculatorPresneter>
+      <DisplayContainer currentCal={CurrentCal} resultCal={ResultCal} />
+      <ControlContainer calculateFunc={calculateFunc} />
+    </CalculatorPresneter>
   );
 };
 

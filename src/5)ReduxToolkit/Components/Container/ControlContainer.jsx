@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ButtonContainer from './ButtonContainer';
 import ControlPresenter from '../Presenter/ControlPresenter';
 
@@ -55,6 +56,9 @@ const ControlContainer = ({ calculateFunc }) => {
       />
     </ControlPresenter>
   );
+};
+ControlContainer.propTypes = {
+  calculateFunc: PropTypes.func.isRequired,
 };
 
 export default React.memo(ControlContainer);
