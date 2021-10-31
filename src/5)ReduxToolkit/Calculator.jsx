@@ -14,8 +14,6 @@ import {
   resultCal,
 } from './redux/features/calculator/calculatorSlice.jsx';
 
-//const CalDispatch = React.createContext();
-
 const CalCulator = () => {
   const CurrentCal = useSelector(currentCal);
   const ResultCal = useSelector(resultCal);
@@ -28,40 +26,44 @@ const CalCulator = () => {
 
   const dispatch = useDispatch();
 
-  const calculateFunc = useCallback(e => {
-    const value = e.target.value;
-    const RefCurrentCal = stateRef.current[0];
-    const RefResultCal = stateRef.current[1];
+  const calculateFunc = useCallback(
+    e => {
+      const value = e.target.value;
+      const RefCurrentCal = stateRef.current[0];
+      const RefResultCal = stateRef.current[1];
 
-    if (isNaN(value) && isNaN(RefCurrentCal[RefCurrentCal.length - 1])) return;
-    switch (value) {
-      case 'C':
-        if (RefCurrentCal.length === 0 && RefResultCal === 0) break;
-        dispatch(RESET());
-        break;
+      if (isNaN(value) && isNaN(RefCurrentCal[RefCurrentCal.length - 1]))
+        return;
+      switch (value) {
+        case 'C':
+          if (RefCurrentCal.length === 0 && RefResultCal === 0) break;
+          dispatch(RESET());
+          break;
 
-      case '+/-':
-        dispatch(POSNEG());
-        break;
+        case '+/-':
+          dispatch(POSNEG());
+          break;
 
-      case '=':
-        if (isNaN(RefCurrentCal[RefCurrentCal.length - 1])) break;
-        dispatch(EQUAL());
-        break;
+        case '=':
+          if (isNaN(RefCurrentCal[RefCurrentCal.length - 1])) break;
+          dispatch(EQUAL());
+          break;
 
-      case '%':
-        dispatch(PERCENT());
-        break;
+        case '%':
+          dispatch(PERCENT());
+          break;
 
-      case '←':
-        dispatch(DELETE());
-        break;
+        case '←':
+          dispatch(DELETE());
+          break;
 
-      default:
-        dispatch(INPUT(value));
-        break;
-    }
-  }, []);
+        default:
+          dispatch(INPUT(value));
+          break;
+      }
+    },
+    [dispatch],
+  );
 
   return (
     <CalculatorPresneter>

@@ -18,6 +18,10 @@ const CalculatorPresneter = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  @media ${props => props.theme.Res.mobile} {
+    width: 80%;
+    height: 80%;
+  }
 `;
 
 export default CalculatorPresneter;
