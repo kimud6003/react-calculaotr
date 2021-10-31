@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './Style/Global';
 import theme from './Style/Theme';
@@ -15,5 +16,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
+serviceWorkerRegistration.register();
 reportWebVitals();
